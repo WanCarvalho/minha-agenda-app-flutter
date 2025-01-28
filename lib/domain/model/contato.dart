@@ -1,9 +1,11 @@
+import 'package:minha_agenda_app/domain/model/contato_status.dart';
+
 class Contato {
   final String nome;
   final String sobrenome;
   final String telefone;
   final String email;
-  final String status;
+  final ContatoStatus status;
   final String endereco;
   final String avatar;
   final String observacao;
@@ -13,7 +15,7 @@ class Contato {
     required this.sobrenome,
     required this.telefone,
     required this.email,
-    required this.status,
+    this.status = ContatoStatus.normal,
     required this.endereco,
     required this.avatar,
     required this.observacao,
@@ -21,7 +23,6 @@ class Contato {
         assert(sobrenome.isNotEmpty),
         assert(telefone.isNotEmpty),
         assert(email.isNotEmpty),
-        assert(status.isNotEmpty),
         assert(endereco.isNotEmpty),
         assert(avatar.isNotEmpty),
         assert(observacao.isNotEmpty);
