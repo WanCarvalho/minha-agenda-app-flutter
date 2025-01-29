@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:minha_agenda_app/domain/provider/contato_provider.dart';
 import 'package:minha_agenda_app/widgets/home_page.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(const MyApp());
@@ -10,13 +12,17 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => ContatoProvider()),
+      ],
+      child: MaterialApp(
+        theme: ThemeData(
+          primarySwatch: Colors.teal,
+          primaryColor: Colors.teal,
+        ),
+        home: HomePage(),
       ),
-      home: HomePage(),
     );
   }
 }
