@@ -40,7 +40,10 @@ class ContatoLista extends StatelessWidget {
             return ListTile(
               title: Text('${contato.nome} ${contato.sobrenome}'),
               subtitle: Text(
-                  '${contato.telefone}\nStatus: ${contato.status.toString().split('.').last}'),
+                contato.status == ContatoStatus.normal
+                    ? contato.telefone
+                    : '${contato.telefone}\nStatus: ${contato.status.toString().split('.').last}',
+              ),
               isThreeLine: true,
               onTap: () async {
                 await Navigator.push(
