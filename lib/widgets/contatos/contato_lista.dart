@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:minha_agenda_app/domain/model/contato_status.dart';
 import 'package:minha_agenda_app/domain/provider/contato_provider.dart';
-import 'package:minha_agenda_app/screens/detalhes_contato.dart';
+import 'package:minha_agenda_app/screens/editar_contato.dart';
 import 'package:provider/provider.dart';
 
 class ContatoLista extends StatelessWidget {
@@ -50,7 +50,7 @@ class ContatoLista extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder: (context) =>
-                        DetalhesContatoScreen(contatoId: id, contato: contato),
+                        EditarContatoScreen(contatoId: id, contato: contato),
                   ),
                 );
                 contatoProvider.getContatos();
