@@ -18,7 +18,7 @@ class ContatoProvider with ChangeNotifier {
       this._contatos.addAll(contatos);
 
       notifyListeners();
-      
+
       return this.contatos;
     } catch (error) {
       rethrow;
@@ -44,10 +44,22 @@ class ContatoProvider with ChangeNotifier {
       await ContatoService.atualizarContato(id, contato);
 
       this._contatos[id] = contato;
-      
+
       notifyListeners();
     } catch (e) {
       rethrow;
+    }
+  }
+
+  Future<void> removerContato(String id) async {
+    try {
+      await ContatoService.removerContato(id);
+
+      _contatos.remove(id);
+      
+      notifyListeners();
+    } catch (e) {
+      print('Erro ao remover contato: $e');
     }
   }
 }

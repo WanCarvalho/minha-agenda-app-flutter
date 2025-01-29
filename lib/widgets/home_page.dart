@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:minha_agenda_app/domain/model/contato_status.dart';
 import 'package:minha_agenda_app/screens/cadastro_contato.dart';
+import 'package:minha_agenda_app/screens/gerencia_contato.dart';
 import 'package:minha_agenda_app/widgets/contatos/contato_lista.dart';
 import 'package:minha_agenda_app/domain/provider/contato_provider.dart';
 import 'package:provider/provider.dart';
@@ -24,34 +25,35 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Minha Agenda'),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.info),
-            onPressed: () {
-              showModalBottomSheet(
-                context: context,
-                shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.vertical(top: Radius.circular(15)),
-                ),
-                builder: (context) {
-                  return const Padding(
-                    padding: EdgeInsets.all(20),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Text('Nome: Wanderson Carvalho',
-                            style: TextStyle(fontSize: 18)),
-                        Text('Matrícula: 20220005950',
-                            style: TextStyle(fontSize: 18)),
-                      ],
-                    ),
-                  );
-                },
-              );
-            },
-          )
-        ],
+      ),
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            const DrawerHeader(
+              decoration: BoxDecoration(color: Colors.blue),
+              child: Text(
+                'Minha Agenda',
+                style: TextStyle(color: Colors.white, fontSize: 24),
+              ),
+            ),
+            ListTile(
+              leading: const Icon(Icons.home),
+              title: const Text('Home'),
+              onTap: () => Navigator.pop(context),
+            ),
+            ListTile(
+              leading: const Icon(Icons.manage_accounts),
+              title: const Text('Gerência de Contatos'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => GerenciaContatosScreen()),
+                );
+              },
+            ),
+          ],
+        ),
       ),
       body: Consumer<ContatoProvider>(
         builder: (context, contatoProvider, child) {

@@ -67,9 +67,27 @@ class ContatoService {
 
     if (response.statusCode == 200) {
       final contatoData = json.decode(response.body);
+
       return Contato.fromJson(contatoData);
     } else {
       throw Exception('Erro ao obter o contato');
+    }
+  }
+
+  static Future<void> removerContato(String id) async {
+    try {
+      final response = await http.delete(
+        Uri.parse('${Urls.BASE_URL}/contatos/$id.json'),
+      );
+
+      if (response.statusCode == 200 || response.statusCode == 204) {
+        print('Contato removido com sucesso.');
+      } else {
+        throw Exception('Erro ao remover o contato.');
+      }
+    } catch (e) {
+      print('Erro ao remover contato do Firebase: $e');
+      throw Exception('Erro ao remover contato.');
     }
   }
 }
