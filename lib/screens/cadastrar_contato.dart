@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:minha_agenda_app/domain/model/contato.dart'; // Supondo que o Contato esteja nesse caminho
+import 'package:minha_agenda_app/domain/model/contato.dart';
 import 'package:minha_agenda_app/domain/model/contato_status.dart';
-import 'package:minha_agenda_app/domain/provider/contato_provider.dart'; // Para o ContatoStatus
+import 'package:minha_agenda_app/domain/provider/contato_provider.dart';
 
 class CadastroContatoScreen extends StatefulWidget {
   @override
@@ -124,24 +124,11 @@ class _CadastroContatoScreenState extends State<CadastroContatoScreen> {
                 TextFormField(
                   controller: avatarController,
                   decoration: InputDecoration(labelText: 'URL do Avatar'),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'A URL do avatar é obrigatória';
-                    }
-                    return null;
-                  },
                 ),
                 TextFormField(
                   controller: observacaoController,
                   decoration: InputDecoration(labelText: 'Observações'),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'As observações são obrigatórias';
-                    }
-                    return null;
-                  },
                 ),
-                // Dropdown para selecionar o status
                 DropdownButtonFormField<ContatoStatus>(
                   value: _status,
                   onChanged: (ContatoStatus? newValue) {

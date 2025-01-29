@@ -1,14 +1,14 @@
 import 'package:minha_agenda_app/domain/model/contato_status.dart';
 
 class Contato {
-  final String nome;
-  final String sobrenome;
-  final String telefone;
-  final String email;
-  final ContatoStatus status;
-  final String endereco;
-  final String avatar;
-  final String observacao;
+  String nome;
+  String sobrenome;
+  String telefone;
+  String email;
+  ContatoStatus status;
+  String endereco;
+  String avatar;
+  String observacao;
 
   Contato({
     required this.nome,

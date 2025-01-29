@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:minha_agenda_app/domain/model/contato.dart';
 import 'package:minha_agenda_app/domain/model/contato_status.dart';
+import 'package:minha_agenda_app/domain/service/contato_service.dart';
 import 'package:minha_agenda_app/screens/cadastrar_contato.dart';
 import 'package:minha_agenda_app/widgets/contatos/contato_lista.dart';
-import 'package:minha_agenda_app/domain/service/contato_service.dart';
+import 'package:minha_agenda_app/domain/provider/contato_provider.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -11,7 +13,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  List<Contato> contatos = [];
+  Map<String, Contato> contatos = {};
   bool isLoading = true;
 
   @override
@@ -24,7 +26,7 @@ class _HomePageState extends State<HomePage> {
     try {
       final contatosMap = await ContatoService.getContatos();
       setState(() {
-        contatos = contatosMap.values.toList();
+        contatos = contatosMap;
         isLoading = false;
       });
     } catch (e) {
@@ -37,12 +39,21 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    List<Contato> favoritos = contatos
-        .where((contato) => contato.status == ContatoStatus.favorito)
-        .toList();
-    List<Contato> bloqueados = contatos
-        .where((contato) => contato.status == ContatoStatus.bloqueado)
-        .toList();
+    final isLoading = context.watch<ContatoProvider>().loading;
+
+    Map<String, Contato> favoritos = Map.fromIterable(
+      contatos.entries
+          .where((entry) => entry.value.status == ContatoStatus.favorito),
+      key: (entry) => entry.key,
+      value: (entry) => entry.value,
+    );
+
+    Map<String, Contato> bloqueados = Map.fromIterable(
+      contatos.entries
+          .where((entry) => entry.value.status == ContatoStatus.bloqueado),
+      key: (entry) => entry.key,
+      value: (entry) => entry.value,
+    );
 
     return Scaffold(
       appBar: AppBar(
@@ -80,7 +91,7 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
       body: isLoading
-          ? Center(child: CircularProgressIndicator()) // Exibe carregamento
+          ? Center(child: CircularProgressIndicator())
           : DefaultTabController(
               length: 3,
               child: Column(
@@ -110,7 +121,7 @@ class _HomePageState extends State<HomePage> {
             context,
             MaterialPageRoute(builder: (context) => CadastroContatoScreen()),
           );
-          _carregarContatos(); // Atualiza a lista após o cadastro
+          context.read<ContatoProvider>().getContatos();
         },
         child: const Icon(Icons.add),
       ),

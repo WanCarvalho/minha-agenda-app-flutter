@@ -36,4 +36,16 @@ class ContatoProvider with ChangeNotifier {
       rethrow;
     }
   }
+
+  Future<void> atualizarContato(String id, Contato contato) async {
+    try {
+      await ContatoService.atualizarContato(id, contato);
+
+      _contatos[id] = contato;
+      
+      notifyListeners();
+    } catch (e) {
+      rethrow;
+    }
+  }
 }
