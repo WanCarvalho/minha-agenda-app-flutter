@@ -20,11 +20,42 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+  void _mostrarInformacoesAluno() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Informações do Aluno'),
+          content: const Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('Nome: Wanderson Carvalho'),
+              Text('Matrícula: 20220005950'),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text('Fechar'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Minha Agenda'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.info),
+            onPressed: _mostrarInformacoesAluno,
+          ),
+        ],
       ),
       drawer: Drawer(
         child: ListView(
@@ -61,11 +92,11 @@ class _HomePageState extends State<HomePage> {
             return const Center(child: CircularProgressIndicator());
           }
 
-          return DefaultTabController(
+          return const DefaultTabController(
             length: 3,
             child: Column(
               children: [
-                const TabBar(
+                TabBar(
                   tabs: [
                     Tab(text: 'Todos'),
                     Tab(text: 'Favoritos'),
