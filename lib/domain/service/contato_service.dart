@@ -38,7 +38,7 @@ class ContatoService {
         throw Exception('Erro ao atualizar o contato');
       }
     } catch (e) {
-      throw Exception('Erro ao buscar ou atualizar o contato: $e');
+      throw Exception('Erro ao atualizar o contato: $e');
     }
   }
 

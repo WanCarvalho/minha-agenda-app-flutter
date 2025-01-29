@@ -16,7 +16,9 @@ class ContatoProvider with ChangeNotifier {
       final contatos = await ContatoService.getContatos();
       this._contatos.clear();
       this._contatos.addAll(contatos);
+
       notifyListeners();
+      
       return this.contatos;
     } catch (error) {
       rethrow;
@@ -41,7 +43,7 @@ class ContatoProvider with ChangeNotifier {
     try {
       await ContatoService.atualizarContato(id, contato);
 
-      _contatos[id] = contato;
+      this._contatos[id] = contato;
       
       notifyListeners();
     } catch (e) {
